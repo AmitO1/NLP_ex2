@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\title{ex2_qes2}
+\author{amit omer}
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+
+
+
+Advantages of character-based language models:
+
+Character-based models can better handle any word, even unseen words or words that are not in the vocabulary. In character-based models, the vocabulary is also really small compared to words-based models, which can also help to capture subtleties like prefix, suffix, or spelling variations better than words-based models.
+
+Advantages of words-based language models:
+
+Words-based models are faster to train because we need to process less token for the same text length, they are also able to achieve better syntactic and semantic meaning which can result in better text generation.
+
+\begin{align*}
+2^{-\frac{1}{M} \sum_{i=1}^{M} \log_2 P(s_i \mid s_1, \dots, s_{i-1})} 
+&= \left(2^{\sum_{i=1}^{M} \log_2 P(s_i \mid s_1, \dots, s_{i-1})}\right)^{-\frac{1}{M}} \\
+&= \left(2^{\log_2 P(s_1) + \log_2 P(s_2 \mid s_1) + \dots + \log_2 P(s_M \mid s_1, \dots, s_{M-1})}\right)^{-\frac{1}{M}} \\
+&= \left(P(s_1) \cdot P(s_2 \mid s_1) \cdot \dots \cdot P(s_M \mid s_1, \dots, s_{M-1})\right)^{-\frac{1}{M}} \\
+&= \left(e^{\ln P(s_1) + \ln P(s_2 \mid s_1) + \dots + \ln P(s_M \mid s_1, \dots, s_{M-1})}\right)^{-\frac{1}{M}} \\
+&= \left(e^{\sum_{i=1}^{M} \ln P(s_i \mid s_1, \dots, s_{i-1})}\right)^{-\frac{1}{M}} \\
+&= e^{-\frac{1}{M} \sum_{i=1}^{M} \ln P(s_i \mid s_1, \dots, s_{i-1})}.
+\end{align*}
+
+question3:
+
+qes1 model:
+Shakespeare Perplexity:
+7.122318650322853
+
+Wikipedia Perplexity:25.75261330172207
+
+ques2 model:
+
+Shakespeare Perplexity: 7.459401319332429
+
+Wikipedia Perplexity: 19.97325117242642
+
+after preprocess:
+
+Shakespeare Perplexity: 6.7163941143305665
+
+Wikipedia Perplexity: 14.383455586564015
+
+what weve done in the preprocess - mainly to "clean" the data, convert all text to lower case letter for better generalization, remove all non-printable characters - those characters probably are irrelevant to the context of the data, and remove exta spacing.
+
+\end{document}
