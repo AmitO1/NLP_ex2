@@ -128,9 +128,18 @@ Shakespeare Perplexity: 7.459401319332429
 
 Wikipedia Perplexity: 19.97325117242642
 \subsection{}
-NEED TO ADD
+For the Character-level Language Model we can assume those result are due to the fact that he learns at the charachter level and also was trained on shakespear data which can give the advantage to more similiar text who is also contains non standard spelling and word forms but on the other hand the result on wikipedia was worse to the more complex and structured word level patterns.
+For the Bi-gram Model we would assume it struggled with Wikipedia and got even a worse score than the character-level language model because it is limited to a 2 word context, where in Wikipedia text usually contains long sentences with dependencies that span multiple words. Our assumption that the score is even lower then the Character-level Language Model to the the later ability to capture meanings of suffixes, prefixes even in complex modern words while not relying on find word pairs.
+Also we think the the Bi-gram model performs better on shakespear because the word pairs and sentence structures in shakespeares text are relatively predictable and consistent .
 \subsection{}
 \textbf{Neural Bi-gram Language Model: (After preprocessing)}
+
+Shakespeare Perplexity: 4.475288916573775
+
+Wikipedia Perplexity: 2.536595085380771
+
+\textbf{Character-level Language
+Model: (After preprocessing)}
 
 Shakespeare Perplexity: 6.740292861033496
 
