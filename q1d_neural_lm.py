@@ -1,5 +1,6 @@
 import os
 import random
+import re
 import time
 
 import numpy as np
@@ -8,12 +9,26 @@ import pandas as pd
 from data_utils import utils
 from sgd import sgd
 from q1c_neural import forward, forward_backward_prop
+import string
 
 
 VOCAB_EMBEDDING_PATH = "data/lm/vocab.embeddings.glove.txt"
 BATCH_SIZE = 50
 NUM_OF_SGD_ITERATIONS = 40000
 LEARNING_RATE = 0.3
+
+def preprocess_data(list_of_words):
+    processed_words = []
+    for word in list_of_words:
+        # Convert to lowercase
+        word = word.lower()
+        # Keep only printable characters
+        word = ''.join(c for c in word if c in string.printable)
+        # Remove extra whitespace
+        word = re.sub(r'\s+', ' ', word).strip()
+        processed_words.append(word)
+    return processed_words
+
 
 
 def load_vocab_embeddings(path=VOCAB_EMBEDDING_PATH):
@@ -32,7 +47,7 @@ def load_vocab_embeddings(path=VOCAB_EMBEDDING_PATH):
 
 def load_data_as_sentences(path, word_to_num):
     """
-    Conv:erts the training data to an array of integer arrays.
+    Converts the training data to an array of integer arrays.
       args:
         path: string pointing to the training data
         word_to_num: A dictionary from string words to integers
@@ -41,6 +56,7 @@ def load_data_as_sentences(path, word_to_num):
         integer is a word.
     """
     docs_data = utils.load_dataset(path)
+    docs_data = [preprocess_data(sentence) for doc in docs_data for sentence in doc]
     S_data = utils.docs_to_indices(docs_data, word_to_num)
     return docs_data, S_data
 
@@ -205,8 +221,8 @@ if __name__ == "__main__":
     print(f"dev perplexity : {perplexity}")
 
     # Evaluate perplexity with test-data (only at test time!)
-    if os.path.exists("data/lm/ptb-test.txt"):
-        perplexity = eval_neural_lm("data/lm/ptb-test.txt")
+    if os.path.exists("/Users/idob/Downloads/HW2/shakespeare_for_perplexity.txt"):
+        perplexity = eval_neural_lm("/Users/idob/Downloads/HW2/shakespeare_for_perplexity.txt")
         print(f"test perplexity : {perplexity}")
     else:
         print("test perplexity will be evaluated only at test time!")
